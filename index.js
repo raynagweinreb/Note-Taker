@@ -1,4 +1,5 @@
 //dependacies
+const { notStrictEqual } = require("assert");
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -22,15 +23,23 @@ app.get("/notes", function (req,res){
 })
 
 // API get 
-app.route("/api/notes").get(function(req,res){
-    res.json(database)
+app.get("/api/notes", function(req,res){
+    res.json(database);
 })
-
+app.get("/api/notes/:id", function(req,res){
+    const id = req.params.id 
+    console.log(id)
+})
+    
+    
 //add new note to db 
-.post(function(req,res){
+app.post("/api/notes", (req,res)=>{
     let jsonDB = path.join(__dirname, "/db/db.json");
     let newNote= req.body;
-database.push(newNote)
+    newNote.id = (database.length + 1)
+
+    database.push(newNote)
+
 fs.writeFile(jsonDB, JSON.stringify(database),function(err){
     if (err) {
         return console.log(err)
