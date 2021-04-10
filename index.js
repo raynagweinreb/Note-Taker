@@ -2,7 +2,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const database = require("./db/db")
+const database = require("./db/db.json")
 
 //express 
 var app = express();
@@ -28,7 +28,7 @@ app.route("/api/notes").get(function(req,res){
 
 //add new note to db 
 .post(function(req,res){
-    let jsonDB = path.jpin(__dirname, "/db/db.json");
+    let jsonDB = path.jpin(__dirname, "/db/db");
     let newNote= req.body;
 
 fs.writeFile(jsonDB, JSON.stringifu(database),function(err){
