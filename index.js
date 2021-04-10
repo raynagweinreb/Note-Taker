@@ -14,7 +14,7 @@ app.use(express.json());
 
 //set on page load 
 app.get("/", function (req,res){
-    res.sendFile(path.joing(__dirname, "public/index.html"));
+    res.sendFile(path.join(__dirname, "public/index.html"));
 })
 
 app.get("/notes", function (req,res){
@@ -28,17 +28,17 @@ app.route("/api/notes").get(function(req,res){
 
 //add new note to db 
 .post(function(req,res){
-    let jsonDB = path.jpin(__dirname, "/db/db");
+    let jsonDB = path.join(__dirname, "/db/db.json");
     let newNote= req.body;
-
-fs.writeFile(jsonDB, JSON.stringifu(database),function(err){
+database.push(newNote)
+fs.writeFile(jsonDB, JSON.stringify(database),function(err){
     if (err) {
         return console.log(err)
     }
-    console.log("Congratulations! Your note was saved")
+    console.log("Your note was saved")
 })
 res.json(newNote)
 })
-app.listen(port,function(){
+app.listen(PORT,function(){
     console.log("app listening on PORT"+ PORT )
 })
