@@ -34,13 +34,13 @@ app.get("/api/notes/:id", function(req,res){
     
 //add new note to db 
 app.post("/api/notes", (req,res)=>{
-    let jsonDB = path.join(__dirname, "/db/db.json");
+    let DB = path.join(__dirname, "/db/db.json");
     let newNote= req.body;
     newNote.id = (database.length + 1)
 
     database.push(newNote)
 
-fs.writeFile(jsonDB, JSON.stringify(database),function(err){
+fs.writeFile(DB, JSON.stringify(database),function(err){
     if (err) {
         return console.log(err)
     }
@@ -48,6 +48,25 @@ fs.writeFile(jsonDB, JSON.stringify(database),function(err){
 })
 res.json(newNote)
 })
-app.listen(PORT,function(){
+
+//delete note 
+
+// app.delete("api/notes/:id",function(req,res){
+//     let DB = path.join(__dirname, "/db/db.json");
+//     for ( var i= 0; i <database.length; i ++){
+//         if (database[i].id === req.params.id){
+//             database.splice(i,1);
+//             break;
+//         }
+//     }
+//     fs.writeFile(DB, JSON.stringify(database),function(err){
+//         if (err) {
+//             return console.log(err)
+//         }
+//         console.log("Your note was deleted")
+//     })
+//     res.json(database)
+// })
+    app.listen(PORT,function(){
     console.log("app listening on PORT"+ PORT )
 })
